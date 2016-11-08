@@ -7,16 +7,21 @@ class Length implements RuleInterface
     use RuleTrait;
 
     protected $message = 'This field does not meet the permitted length.';
-    protected $minLength, $maxLength;
+    protected $minLength;
+    protected $maxLength;
 
     public function __construct($minLength, $maxLength)
     {
         if (! is_int($minLength)) {
-            throw new \InvalidArgumentException(sprintf('Minimum length must be type of int, %s given.', gettype($minLength)));
+            throw new \InvalidArgumentException(
+                sprintf('Minimum length must be type of int, %s given.', gettype($minLength))
+            );
         }
 
         if (! is_int($maxLength)) {
-            throw new \InvalidArgumentException(sprintf('Maximum length must be type of int, %s given.', gettype($maxLength)));
+            throw new \InvalidArgumentException(
+                sprintf('Maximum length must be type of int, %s given.', gettype($maxLength))
+            );
         }
 
         if ($minLength > $maxLength) {

@@ -12,7 +12,9 @@ class MaxLength implements RuleInterface
     public function __construct($maxLength)
     {
         if (! is_int($maxLength)) {
-            throw new \InvalidArgumentException(sprintf('Maximum length must be type of int, %s given.', gettype($maxLength)));
+            throw new \InvalidArgumentException(
+                sprintf('Maximum length must be type of int, %s given.', gettype($maxLength))
+            );
         }
 
         $this->maxLength = $maxLength;

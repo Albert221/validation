@@ -12,7 +12,9 @@ class MinLength implements RuleInterface
     public function __construct($minLength)
     {
         if (! is_int($minLength)) {
-            throw new \InvalidArgumentException(sprintf('Minimum length must be type of int, %s given.', gettype($minLength)));
+            throw new \InvalidArgumentException(
+                sprintf('Minimum length must be type of int, %s given.', gettype($minLength))
+            );
         }
 
         $this->minLength = $minLength;

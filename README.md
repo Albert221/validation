@@ -46,13 +46,13 @@ if ($validator->getErrorsCount() > 0) {
 
 [ico-version]: https://img.shields.io/packagist/v/albert221/validation.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/albert221/validation/master.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/Albert221/validation/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/albert221/validation.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/albert221/validation.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/albert221/validation.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/albert221/validation
-[link-travis]: https://travis-ci.org/albert221/validation
+[link-travis]: https://travis-ci.org/Albert221/validation
 [link-scrutinizer]: https://scrutinizer-ci.com/g/albert221/validation/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/albert221/validation
 [link-downloads]: https://packagist.org/packages/albert221/validation

@@ -21,7 +21,9 @@ class Validator
     public function addField($name, $value)
     {
         if (! is_string($name)) {
-            throw new \InvalidArgumentException(sprintf('Field name should be of string type, %s given.', gettype($name)));
+            throw new \InvalidArgumentException(
+                sprintf('Field name should be of string type, %s given.', gettype($name))
+            );
         }
 
         if ($this->issetField($name)) {
@@ -52,7 +54,9 @@ class Validator
     public function addRule($fieldName, RuleInterface $rule)
     {
         if (! $this->issetField($fieldName)) {
-            throw new \InvalidArgumentException(sprintf('Field \'%s\' does not exist and hence you cannot add rule to it', $fieldName));
+            throw new \InvalidArgumentException(
+                sprintf('Field \'%s\' does not exist and hence you cannot add rule to it', $fieldName)
+            );
         }
 
         $this->rules[$fieldName][] = $rule;
