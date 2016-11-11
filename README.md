@@ -35,7 +35,10 @@ $validator->addRule('phone', new Rule\Regex('/^(?:[0+]48)?(\d{9})$/'))
 
 // (...)
 
-if ($validator->getErrorsCount() > 0) {
+// You have to validate call validate before retrieving errors this way:
+// $validator->validate()
+// or this way:
+if ($validator->validate()->getErrorsCount() > 0) {
     $errors = $validator->getErrors();
     
     // Do stuff with errors, probably flash it and redirect form or something
