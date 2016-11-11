@@ -35,7 +35,7 @@ $validator->addRule('phone', new Rule\Regex('/^(?:[0+]48)?(\d{9})$/'))
 
 // (...)
 
-// You have to validate call validate before retrieving errors this way:
+// You have to call validate before retrieving errors, this way:
 // $validator->validate()
 // or this way:
 if ($validator->validate()->getErrorsCount() > 0) {
@@ -46,6 +46,17 @@ if ($validator->validate()->getErrorsCount() > 0) {
 
 // Validation passed!
 ```
+
+## Availible rules
+
+- `Required()`
+- `Email()`
+- `Url()`
+- `Regex()`
+- `Equal(mixed $object)`
+- `MinLength(int $min)`
+- `MaxLength(int $max)`
+- `Length(int $length)`
 
 [ico-version]: https://img.shields.io/packagist/v/albert221/validation.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square

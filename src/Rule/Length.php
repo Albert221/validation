@@ -6,35 +6,23 @@ class Length implements RuleInterface
 {
     use RuleTrait;
 
-    protected $minLength;
-    protected $maxLength;
+    protected $length;
 
-    public function __construct($minLength, $maxLength)
+    public function __construct($length)
     {
-        $this->message = 'This field does not meet the permitted length.';
+        $this->message = 'This field is not the proper length.';
 
-        if (! is_int($minLength)) {
+        if (! is_int($length)) {
             throw new \InvalidArgumentException(
-                sprintf('Minimum length must be type of int, %s given.', gettype($minLength))
+                sprintf('Minimum length must be type of int, %s given.', gettype($length))
             );
         }
 
-        if (! is_int($maxLength)) {
-            throw new \InvalidArgumentException(
-                sprintf('Maximum length must be type of int, %s given.', gettype($maxLength))
-            );
-        }
-
-        if ($minLength > $maxLength) {
-            throw new \InvalidArgumentException('Minimum length must not be greater than maximum length.');
-        }
-
-        $this->minLength = $minLength;
-        $this->maxLength = $maxLength;
+        $this->length = $length;
     }
 
     public function test($value)
     {
-        return mb_strlen($value) >= $this->minLength && mb_strlen($value) <= $this->maxLength;
+        return mb_strlen($value) == $this->length;
     }
 }
