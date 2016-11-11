@@ -6,11 +6,12 @@ class MaxLength implements RuleInterface
 {
     use RuleTrait;
 
-    protected $message = 'This field exceeds maximum length.';
     protected $maxLength;
 
     public function __construct($maxLength)
     {
+        $this->message = 'This field exceeds maximum length.';
+
         if (! is_int($maxLength)) {
             throw new \InvalidArgumentException(
                 sprintf('Maximum length must be type of int, %s given.', gettype($maxLength))

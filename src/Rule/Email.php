@@ -6,7 +6,10 @@ class Email implements RuleInterface
 {
     use RuleTrait;
 
-    protected $message = 'This field should contain valid email address.';
+    public function __construct()
+    {
+        $this->message = 'This field should contain valid email address.';
+    }
 
     public function test($value)
     {

@@ -6,7 +6,10 @@ class Required implements RuleInterface
 {
     use RuleTrait;
 
-    protected $message = 'This field is required.';
+    public function __construct()
+    {
+        $this->message = 'This field is required.';
+    }
 
     public function test($value)
     {

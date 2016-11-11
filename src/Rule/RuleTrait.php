@@ -4,6 +4,8 @@ namespace Albert221\Validation\Rule;
 
 trait RuleTrait
 {
+    protected $message;
+
     public function getMessage()
     {
         return $this->message;

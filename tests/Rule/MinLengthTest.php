@@ -6,6 +6,14 @@ use PHPUnit_Framework_TestCase;
 
 class MinLengthTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testNonIntegerArgument()
+    {
+        new MinLength('test');
+    }
+
     public function testSmallerLength()
     {
         $rule = new MinLength(5);

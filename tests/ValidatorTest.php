@@ -33,39 +33,50 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testAddRuleToNonExistingField()
     {
-        $rule = $this->createMock(RuleInterface::class);
-
         $validator = new Validator();
-        $validator->addRule('test', $rule);
+        $validator->addRule('test', $this->getPassingRuleMock());
+    }
+
+    public function testValidate()
+    {
+        $validator = new Validator();
+
+        $this->assertInstanceOf(Validator::class, $validator->validate());
+    }
+
+    public function testValidateOnAlreadyValidated()
+    {
+        $validator = new Validator();
+        $validator->validate();
+
+        $validator->addField('test', 1);
+        $validator->addRule('test', $this->getFailingRuleMock());
+
+        $this->assertEquals(0, $validator->getErrorsCount());
+
+        $this->assertInstanceOf(Validator::class, $validator->validate());
     }
 
     public function testErrorsCount()
     {
         // For failing rule
-        $failingRule = $this->createMock(RuleInterface::class);
-        $failingRule->method('test')->willReturn(false);
-
         $failingValidator = new Validator();
         $failingValidator->addField('test', 1);
-        $failingValidator->addRule('test', $failingRule);
+        $failingValidator->addRule('test', $this->getFailingRuleMock());
 
-        $this->assertEquals(1, $failingValidator->getErrorsCount());
+        $this->assertEquals(1, $failingValidator->validate()->getErrorsCount());
 
         // For passing rule
-        $passingRule = $this->createMock(RuleInterface::class);
-        $passingRule->method('test')->willReturn(true);
-
         $passingValidator = new Validator();
         $passingValidator->addField('test', 1);
-        $passingValidator->addRule('test', $passingRule);
+        $passingValidator->addRule('test', $this->getPassingRuleMock());
 
-        $this->assertEquals(0, $passingValidator->getErrorsCount());
+        $this->assertEquals(0, $passingValidator->validate()->getErrorsCount());
     }
 
     public function testErrorsArray()
     {
-        $rule = $this->createMock(RuleInterface::class);
-        $rule->method('test')->willReturn(false);
+        $rule = $this->getFailingRuleMock();
         $rule->method('getMessage')->willReturn('testMessage');
 
         $validator = new Validator();
@@ -78,6 +89,35 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $this->assertEquals($expected, $validator->getErrors());
+        $this->assertEquals($expected, $validator->validate()->getErrors());
+    }
+
+    public function testClone()
+    {
+        $validator = new Validator();
+        $validator->addField('test', 1);
+        $validator->addRule('test', $this->getFailingRuleMock());
+
+        $validator->validate();
+
+        $newValidator = clone $validator;
+
+        $this->assertEquals(0, $newValidator->getErrorsCount());
+    }
+
+    private function getFailingRuleMock()
+    {
+        $rule = $this->createMock(RuleInterface::class);
+        $rule->method('test')->willReturn(false);
+
+        return $rule;
+    }
+
+    private function getPassingRuleMock()
+    {
+        $rule = $this->createMock(RuleInterface::class);
+        $rule->method('test')->willReturn(true);
+
+        return $rule;
     }
 }

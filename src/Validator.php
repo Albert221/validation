@@ -85,15 +85,18 @@ class Validator
      */
     public function getErrors()
     {
-        $this->validate();
-
         return $this->errors;
     }
 
-    private function validate()
+    /**
+     * Validates fields using validation rules
+     *
+     * @return $this
+     */
+    public function validate()
     {
         if ($this->validated) {
-            return;
+            return $this;
         }
 
         foreach ($this->fields as $field => $value) {
@@ -108,19 +111,16 @@ class Validator
         }
 
         $this->validated = true;
+
+        return $this;
     }
 
     /**
      * Clone validator with fields and rules but without validation errors.
-     *
-     * @return Validator
      */
     public function __clone()
     {
-        $new = clone $this;
-        $new->validated = false;
-        $new->errors = [];
-
-        return $new;
+        $this->validated = false;
+        $this->errors = [];
     }
 }

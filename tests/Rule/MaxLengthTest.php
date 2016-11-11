@@ -6,6 +6,14 @@ use PHPUnit_Framework_TestCase;
 
 class MaxLengthTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testNonIntegerArgument()
+    {
+        new MaxLength('test');
+    }
+
     public function testSmallerLength()
     {
         $rule = new MaxLength(5);

@@ -6,7 +6,10 @@ class Url implements RuleInterface
 {
     use RuleTrait;
 
-    protected $message = 'This field must be a valid url.';
+    public function __construct()
+    {
+        $this->message = 'This field must be a valid url.';
+    }
 
     public function test($value)
     {

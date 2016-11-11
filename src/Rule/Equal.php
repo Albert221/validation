@@ -6,11 +6,11 @@ class Equal implements RuleInterface
 {
     use RuleTrait;
 
-    protected $message = 'This field should be equal to the specified value.';
     protected $twin;
 
     public function __construct($twin)
     {
+        $this->message = 'This field should be equal to the specified value.';
         $this->twin = $twin;
     }
 

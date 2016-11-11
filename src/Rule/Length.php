@@ -6,12 +6,13 @@ class Length implements RuleInterface
 {
     use RuleTrait;
 
-    protected $message = 'This field does not meet the permitted length.';
     protected $minLength;
     protected $maxLength;
 
     public function __construct($minLength, $maxLength)
     {
+        $this->message = 'This field does not meet the permitted length.';
+
         if (! is_int($minLength)) {
             throw new \InvalidArgumentException(
                 sprintf('Minimum length must be type of int, %s given.', gettype($minLength))
