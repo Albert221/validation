@@ -92,6 +92,31 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $validator->validate()->getErrors());
     }
 
+    public function testGetFields()
+    {
+        $validator = new Validator();
+
+        $validator->addField('test', 'test123');
+
+        $expected = [
+            'test' => 'test123'
+        ];
+        $this->assertEquals($expected, $validator->getFields());
+    }
+
+    public function testGetFieldsWithSecret()
+    {
+        $validator = new Validator();
+
+        $validator->addField('test', 'test123');
+        $validator->addField('foo', 'bar', true);
+
+        $expected = [
+            'test' => 'test123'
+        ];
+        $this->assertEquals($expected, $validator->getFields());
+    }
+
     public function testClone()
     {
         $validator = new Validator();

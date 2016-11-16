@@ -8,6 +8,7 @@ class Validator
 {
     protected $rules = [];
     protected $fields = [];
+    protected $secretFields = [];
     protected $errors = [];
 
     protected $validated = false;
@@ -17,8 +18,9 @@ class Validator
      *
      * @param string $name
      * @param mixed $value
+     * @param bool $secret Should this be hidden when fetching fields?
      */
-    public function addField($name, $value)
+    public function addField($name, $value, $secret = false)
     {
         if (! is_string($name)) {
             throw new \InvalidArgumentException(
@@ -31,6 +33,10 @@ class Validator
         }
 
         $this->fields[$name] = $value;
+
+        if ($secret) {
+            $this->secretFields[] = $name;
+        }
     }
 
     /**
@@ -86,6 +92,22 @@ class Validator
     public function getErrors()
     {
         return $this->errors;
+    }
+
+    /**
+     * Returns added fields. Handy for flashing old input.
+     *
+     * @return array
+     */
+    public function getFields()
+    {
+        $fields = $this->fields;
+
+        foreach ($this->secretFields as $secret) {
+            unset($fields[$secret]);
+        }
+
+        return $fields;
     }
 
     /**
