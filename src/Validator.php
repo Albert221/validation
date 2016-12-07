@@ -40,7 +40,7 @@ class Validator
     }
 
     /**
-     * Returns if field is already added.
+     * Returns if field is already added and is not null.
      *
      * @param string $name
      * @return bool
@@ -59,12 +59,6 @@ class Validator
      */
     public function addRule($fieldName, RuleInterface $rule)
     {
-        if (! $this->issetField($fieldName)) {
-            throw new \InvalidArgumentException(
-                sprintf('Field \'%s\' does not exist and hence you cannot add rule to it', $fieldName)
-            );
-        }
-
         $this->rules[$fieldName][] = $rule;
 
         return $rule;

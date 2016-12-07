@@ -28,15 +28,6 @@ class ValidatorTest extends PHPUnit_Framework_TestCase
         $validator->addField(1, 1);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testAddRuleToNonExistingField()
-    {
-        $validator = new Validator();
-        $validator->addRule('test', $this->getPassingRuleMock());
-    }
-
     public function testValidate()
     {
         $validator = new Validator();
