@@ -49,14 +49,21 @@ if ($validator->validate()->getErrorsCount() > 0) {
 
 ## Availible rules
 
-- `Required()`
+- `Alphanumeric()`
+- `DateAfter(\DateTime $date)`
+- `DateBefore(\DateTime $date)`
 - `Email()`
-- `Url()`
-- `Regex()`
 - `Equal(mixed $object)`
-- `MinLength(int $min)`
-- `MaxLength(int $max)`
 - `Length(int $length)`
+- `MaxLength(int $max)`
+- `MimeType($mimeType)`
+- `MinLength(int $min)`
+- `Numeric()`
+- `PDOUnique($table, $field, \PDO $pdo)`
+- `Regex()`
+- `Required()`
+- `UnicodeAlphanumeric()`
+- `Url()`
 
 [ico-version]: https://img.shields.io/packagist/v/albert221/validation.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
