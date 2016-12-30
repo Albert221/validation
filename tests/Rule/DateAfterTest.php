@@ -5,7 +5,7 @@ namespace Albert221\Validation\Rule;
 use DateTime;
 use PHPUnit_Framework_TestCase;
 
-class AfterTest extends PHPUnit_Framework_TestCase
+class DateAfterTest extends PHPUnit_Framework_TestCase
 {
     public function testWithBeforeDate()
     {
