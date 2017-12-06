@@ -12,7 +12,7 @@
 Via Composer
 
 ```bash
-composer require albert221/validation ^1.0
+composer require albert221/validation ^2.0
 ```
 
 ## Usage
@@ -21,49 +21,47 @@ composer require albert221/validation ^1.0
 use Albert221\Validation\Validator;
 use Albert221\Validation\Rule;
 
-/** @var Psr\Http\Message\ServerRequestInterface $request **/
+// $data = [...];
 
-$validator = new Validator();
+$validState = Validator::build()
+    ->addField('username')
+        ->addRule(Rule\Required::class)
+        ->addRule(Rule\Length::class, ['min' => 4])
+        ->addRule(Rule\PdoUnique::class, ['pdo' => $pdo, 'table' => 'users', 'field' => 'username'])
+    ->addField('email')
+        ->addRule(Rule\Required::class)
+        ->addRule(Rule\Email::class)
+        ->addRule(Rule\PdoUnique::class, ['pdo' => $pdo, 'table' => 'users', 'field' => 'email'])
+    ->addField('password')
+        ->addRule(Rule\Required::class)
+        ->addRule(Rule\Length::class)
+            ->setOption('min', 6) // You can set options that way, too!
+        ->addRule(Rule\Complexity::class, ['alpha' => true, 'num' => true, 'special' => true])
+            ->setMessage('Your password is too weak!')
+    ->addField('confirm_password')
+        ->addRule(Rule\SameAs::class, ['field' => 'password']
+    ->validate($data);
 
-// Add field named 'phone' to validator
-$validator->addField('phone', $request->getParsedBody()['phone']);
-// Add some validation rules to this field
-$validator->addRule('phone', new Rule\Required())
-    ->setMessage('Sorry, but phone is required to proceed.');
-$validator->addRule('phone', new Rule\Regex('/^(?:[0+]48)?(\d{9})$/'))
-    ->setMessage('Sorry, but your phone is incorrect.');
-
-// (...)
-
-// You have to call validate before retrieving errors, this way:
-// $validator->validate()
-// or this way:
-if ($validator->validate()->getErrorsCount() > 0) {
-    $errors = $validator->getErrors();
-    
-    // Do stuff with errors, probably flash it and redirect form or something
+if (!$validState->isValid()) {
+    // Validation failed
 }
 
-// Validation passed!
+// Validation passed
+
+// ValidationState methods:
+
+$validState->isValid(); // Is valid?
+$validState->isFieldValid('username'); // Is specified field valid?
+$validState->all(); // Get all verdicts as a flat array.
+$validState->all(ValidationState::GROUPED); // Get all verdicts grouped by field.
+$validState->field('username'); // Get all verdicts for specified field.
+
+// You can also use $validState as an array:
+
+$validState['username'][0]; // For first error of username field.
+$validState[0] // For first error overall.
 ```
 
-## Availible rules
-
-- `Alphanumeric()`
-- `DateAfter(\DateTime $date)`
-- `DateBefore(\DateTime $date)`
-- `Email()`
-- `Equal(mixed $object)`
-- `Length(int $length)`
-- `MaxLength(int $max)`
-- `MimeType($mimeType)`
-- `MinLength(int $min)`
-- `Numeric()`
-- `PDOUnique($table, $field, \PDO $pdo)`
-- `Regex()`
-- `Required()`
-- `UnicodeAlphanumeric()`
-- `Url()`
 
 [ico-version]: https://img.shields.io/packagist/v/albert221/validation.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
