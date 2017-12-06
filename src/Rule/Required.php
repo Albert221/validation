@@ -24,6 +24,6 @@ class Required extends Rule
             $passes = true;
         }
 
-        return Verdict::create($passes, $this, $value);
+        return Verdict::create($passes, $this);
     }
 }
