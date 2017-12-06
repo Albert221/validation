@@ -49,28 +49,27 @@ class EverythingTest extends TestCase
         $valid = Validator::build()
             ->addField('username')
                 ->addRule(Rule\Required::class)
-                ->addRule(Rule\Length::class, ['min' => 4])
-                ->addRule(Rule\DbUnique::class, [
-                    'pdo' => $this->pdo,
-                    'table' => 'users',
-                    'field' => 'username'
-                ])
-                ->addRule(Rule\NotIn::class, ['collection' => $this->insults])
+//                ->addRule(Rule\Length::class, ['min' => 4])
+//                ->addRule(Rule\DbUnique::class, [
+//                    'pdo' => $this->pdo,
+//                    'table' => 'users',
+//                    'field' => 'username'
+//                ])
+//                ->addRule(Rule\NotIn::class, ['collection' => $this->insults])
             ->addField('email')
                 ->addRule(Rule\Required::class)
-                ->addRule(Rule\Email::class)
+//                ->addRule(Rule\Email::class)
             ->addField('favorite_sentence')
-                ->addRule(new Rule\Length(['min' => 10]))
+//                ->addRule(new Rule\Length(['min' => 10]))
             ->addField('password')
                 ->addRule(Rule\Required::class)
-                ->addRule(Rule\Length::class)
-                    ->setOption('min', 8)
-                ->addRule(Rule\Complexity::class, ['num' => true, 'special' => true])
-                    ->setMessage('Your password is too weak!')
-//          ->addField('confirm_password', new Preset\Confirm('password'))
+//                ->addRule(Rule\Length::class)
+//                    ->setOption('min', 8)
+//                ->addRule(Rule\Complexity::class, ['num' => true, 'special' => true])
+//                    ->setMessage('Your password is too weak!')
             ->addField('confirm_password')
                 ->addRule(Rule\Required::class)
-                ->addRule(Rule\SameAs::class, ['field' => 'password'])
+//                ->addRule(Rule\SameAs::class, ['field' => 'password'])
             ->validate($data)
             ->isValid();
 
@@ -101,7 +100,7 @@ class EverythingTest extends TestCase
                 'username' => 'john_doe',
                 'favorite_sentence' => 'x',
                 'password' => 'weaklol',
-                'confirm_password' => ''
+                'confirm_password' => null
             ]
         ];
 
