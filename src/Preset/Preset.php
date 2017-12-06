@@ -11,5 +11,5 @@ abstract class Preset
     /**
      * @return Validator
      */
-    public abstract function getValidatorBuilder(): Validator;
+    abstract public function getValidatorBuilder(): Validator;
 }

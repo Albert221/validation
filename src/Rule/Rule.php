@@ -104,7 +104,7 @@ abstract class Rule
      *
      * @return Verdict
      */
-    public abstract function verdict($value): Verdict;
+    abstract public function verdict($value): Verdict;
 
     //
     // Methods taken from Field and ValidatorBuilder for easy methods chaining.
