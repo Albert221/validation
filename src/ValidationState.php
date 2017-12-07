@@ -14,7 +14,7 @@ class ValidationState implements ArrayAccess
     const GROUPED = 1;
 
     /**
-     * @var Verdict[]
+     * @var Verdicts
      */
     private $verdicts;
 
@@ -25,7 +25,7 @@ class ValidationState implements ArrayAccess
      */
     public function __construct(array $verdicts)
     {
-        $this->verdicts = $verdicts;
+        $this->verdicts = new Verdicts($verdicts);
     }
 
     /**
@@ -33,13 +33,7 @@ class ValidationState implements ArrayAccess
      */
     public function isValid(): bool
     {
-        foreach ($this->verdicts as $verdict) {
-            if (!$verdict->passes()) {
-                return false;
-            }
-        }
-
-        return true;
+        return count($this->verdicts->failing()) === 0;
     }
 
     /**
@@ -47,18 +41,9 @@ class ValidationState implements ArrayAccess
      *
      * @return Verdict[]
      */
-    public function all(int $strategy = self::FLAT): array
+    public function all(): array
     {
-        if (self::FLAT === $strategy) {
-            return $this->verdicts;
-        }
-
-        $array = [];
-        foreach ($this->verdicts as $verdict) {
-            $array[$verdict->getField()->getName()] = $verdict;
-        }
-
-        return $array;
+        return $this->verdicts->toArray();
     }
 
     /**
@@ -68,27 +53,15 @@ class ValidationState implements ArrayAccess
      */
     public function isFieldValid(string $name): bool
     {
-        $doesExist = false;
-        foreach ($this->verdicts as $verdict) {
-            if ($name !== $verdict->getField()->getName()) {
-                continue;
-            }
-
-            $doesExist = true;
-
-            if (!$verdict->passes()) {
-                return false;
-            }
-        }
-
-        if (!$doesExist) {
+        $verdictsForField = $this->verdicts->forField($name);
+        if ($verdictsForField->count() === 0) {
             throw new \InvalidArgumentException(sprintf(
-                'Field with name "%s" does not exist.',
+                'Field "%s" does not exist in the validation state.',
                 $name
             ));
         }
 
-        return true;
+        return $verdictsForField->failing()->count === 0;
     }
 
     /**
@@ -98,14 +71,7 @@ class ValidationState implements ArrayAccess
      */
     public function field(string $name): array
     {
-        $verdicts = [];
-        foreach ($this->verdicts as $verdict) {
-            if ($name === $verdict->getField()->getName()) {
-                $verdicts[] = $verdict;
-            }
-        }
-
-        return $verdicts;
+        return $this->verdicts->forField($name)->toArray();
     }
 
     /**
@@ -116,7 +82,7 @@ class ValidationState implements ArrayAccess
     public function offsetExists($offset): bool
     {
         if (is_int($offset)) {
-            return isset($this->verdicts[$offset]);
+            return isset($this->verdicts->toArray()[$offset]);
         }
 
         if (!is_string($offset)) {
@@ -126,13 +92,7 @@ class ValidationState implements ArrayAccess
             ));
         }
 
-        foreach ($this->verdicts as $verdict) {
-            if ($offset === $verdict->getField()->getName()) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->verdicts->forField($offset)->count() > 0;
     }
 
     /**
