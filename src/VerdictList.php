@@ -12,14 +12,14 @@ use Traversable;
 class VerdictList implements Countable, IteratorAggregate
 {
     /**
-     * @var Verdict[]
+     * @var VerdictInterface[]
      */
     private $verdicts;
 
     /**
      * Verdicts constructor.
      *
-     * @param Verdict[] $verdicts
+     * @param VerdictInterface[] $verdicts
      */
     public function __construct(array $verdicts)
     {
@@ -29,7 +29,7 @@ class VerdictList implements Countable, IteratorAggregate
     /**
      * @return bool
      */
-    public function passes(): bool
+    public function pass(): bool
     {
         return count($this->failing()) === 0;
     }
@@ -37,7 +37,7 @@ class VerdictList implements Countable, IteratorAggregate
     /**
      * @return bool
      */
-    public function fails(): bool
+    public function fail(): bool
     {
         return count($this->failing()) > 0;
     }
@@ -47,7 +47,7 @@ class VerdictList implements Countable, IteratorAggregate
      */
     public function passing(): VerdictList
     {
-        return $this->filter(function (Verdict $verdict) {
+        return $this->filter(function (VerdictInterface $verdict) {
             return $verdict->passes();
         });
     }
@@ -57,7 +57,7 @@ class VerdictList implements Countable, IteratorAggregate
      */
     public function failing(): VerdictList
     {
-        return $this->filter(function (Verdict $verdict) {
+        return $this->filter(function (VerdictInterface $verdict) {
             return !$verdict->passes();
         });
     }
@@ -69,7 +69,7 @@ class VerdictList implements Countable, IteratorAggregate
      */
     public function forField(string $fieldName): VerdictList
     {
-        return $this->filter(function (Verdict $verdict) use ($fieldName) {
+        return $this->filter(function (VerdictInterface $verdict) use ($fieldName) {
             return $verdict->getField()->getName() === $fieldName;
         });
     }
@@ -106,7 +106,7 @@ class VerdictList implements Countable, IteratorAggregate
     }
 
     /**
-     * @return Verdict[]
+     * @return VerdictInterface[]
      */
     public function toArray(): array
     {

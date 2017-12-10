@@ -6,7 +6,7 @@ namespace Albert221\Validation;
 
 use Albert221\Validation\Rule\Rule;
 
-class Verdict
+class Verdict implements VerdictInterface
 {
     /**
      * @var bool

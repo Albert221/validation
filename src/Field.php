@@ -92,9 +92,9 @@ class Field
     /**
      * @param $data
      *
-     * @return ValidationState
+     * @return VerdictList
      */
-    public function validate($data): ValidationState
+    public function validate($data): VerdictList
     {
         return $this->validator->validate($data);
     }
