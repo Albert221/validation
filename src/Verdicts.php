@@ -57,12 +57,12 @@ class Verdicts implements Countable, IteratorAggregate
         return $this->verdicts;
     }
 
-    public function /* Countable */ count(): int
+    public function count(): int
     {
         return count($this->verdicts);
     }
 
-    public function /* IteratorAggregate */ getIterator(): \Traversable
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->verdicts);
     }
