@@ -47,7 +47,7 @@ class Verdicts implements Countable, IteratorAggregate
         return new static(array_filter($this->verdicts, $function));
     }
 
-    public function reduce(callable $function, $initial = null)
+    public function reduce(callable $function, $initial = null): Verdicts
     {
         return new static(array_reduce($this->verdicts, $function, $initial));
     }
