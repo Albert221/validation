@@ -8,6 +8,7 @@ use Albert221\Validation\Field;
 use Albert221\Validation\ValidationState;
 use Albert221\Validation\Validator;
 use Albert221\Validation\Verdict;
+use Albert221\Validation\VerdictList;
 
 abstract class Rule
 {
@@ -134,9 +135,9 @@ abstract class Rule
     /**
      * @param $data
      *
-     * @return ValidationState
+     * @return VerdictList
      */
-    public function validate($data): ValidationState
+    public function validate($data): VerdictList
     {
         return $this->validator->validate($data);
     }

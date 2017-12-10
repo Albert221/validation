@@ -27,6 +27,22 @@ class VerdictList implements Countable, IteratorAggregate
     }
 
     /**
+     * @return bool
+     */
+    public function passes(): bool
+    {
+        return count($this->failing()) === 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function fails(): bool
+    {
+        return count($this->failing()) > 0;
+    }
+
+    /**
      * @return VerdictList
      */
     public function passing(): VerdictList
