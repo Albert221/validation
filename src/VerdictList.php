@@ -9,7 +9,7 @@ use Countable;
 use IteratorAggregate;
 use Traversable;
 
-class Verdicts implements Countable, IteratorAggregate
+class VerdictList implements Countable, IteratorAggregate
 {
     /**
      * @var Verdict[]
@@ -27,9 +27,9 @@ class Verdicts implements Countable, IteratorAggregate
     }
 
     /**
-     * @return Verdicts
+     * @return VerdictList
      */
-    public function passing(): Verdicts
+    public function passing(): VerdictList
     {
         return $this->filter(function (Verdict $verdict) {
             return $verdict->passes();
@@ -37,9 +37,9 @@ class Verdicts implements Countable, IteratorAggregate
     }
 
     /**
-     * @return Verdicts
+     * @return VerdictList
      */
-    public function failing(): Verdicts
+    public function failing(): VerdictList
     {
         return $this->filter(function (Verdict $verdict) {
             return !$verdict->passes();
@@ -49,9 +49,9 @@ class Verdicts implements Countable, IteratorAggregate
     /**
      * @param string $fieldName
      *
-     * @return Verdicts
+     * @return VerdictList
      */
-    public function forField(string $fieldName): Verdicts
+    public function forField(string $fieldName): VerdictList
     {
         return $this->filter(function (Verdict $verdict) use ($fieldName) {
             return $verdict->getField()->getName() === $fieldName;
@@ -61,9 +61,9 @@ class Verdicts implements Countable, IteratorAggregate
     /**
      * @param callable $function
      *
-     * @return Verdicts
+     * @return VerdictList
      */
-    public function map(callable $function): Verdicts
+    public function map(callable $function): VerdictList
     {
         return new static(array_map($function, $this->verdicts));
     }
@@ -71,9 +71,9 @@ class Verdicts implements Countable, IteratorAggregate
     /**
      * @param callable $function
      *
-     * @return Verdicts
+     * @return VerdictList
      */
-    public function filter(callable $function): Verdicts
+    public function filter(callable $function): VerdictList
     {
         return new static(array_filter($this->verdicts, $function));
     }
@@ -82,9 +82,9 @@ class Verdicts implements Countable, IteratorAggregate
      * @param callable $function
      * @param mixed $initial
      *
-     * @return Verdicts
+     * @return VerdictList
      */
-    public function reduce(callable $function, $initial = null): Verdicts
+    public function reduce(callable $function, $initial = null): VerdictList
     {
         return new static(array_reduce($this->verdicts, $function, $initial));
     }

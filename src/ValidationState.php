@@ -7,7 +7,7 @@ namespace Albert221\Validation;
 class ValidationState
 {
     /**
-     * @var Verdicts
+     * @var VerdictList
      */
     private $verdicts;
 
@@ -18,7 +18,7 @@ class ValidationState
      */
     public function __construct(array $verdicts)
     {
-        $this->verdicts = new Verdicts($verdicts);
+        $this->verdicts = new VerdictList($verdicts);
     }
 
     /**
@@ -48,9 +48,9 @@ class ValidationState
     }
 
     /**
-     * @return Verdicts
+     * @return VerdictList
      */
-    public function all(): Verdicts
+    public function all(): VerdictList
     {
         return $this->verdicts;
     }
@@ -58,9 +58,9 @@ class ValidationState
     /**
      * @param string $name
      *
-     * @return Verdicts
+     * @return VerdictList
      */
-    public function field(string $name): Verdicts
+    public function field(string $name): VerdictList
     {
         return $this->verdicts->forField($name);
     }
