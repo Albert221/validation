@@ -45,6 +45,16 @@ class ValidatorTest extends TestCase
         $this->assertSame($field, $validator->getFields()['foobar']);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testAddAlreadyExistingField()
+    {
+        $validator = new Validator();
+        $validator->addRawField(new Field('test', $validator));
+        $validator->addRawField(new Field('test', $validator));
+    }
+
     public function testAddField()
     {
         $validator = new Validator();
@@ -61,30 +71,31 @@ class ValidatorTest extends TestCase
     {
         $validator = new Validator();
 
-        $verdicts = $validator
-            ->addField('field')
-            ->addRule($this->getFailingRule($validator, $validator->getFields()['field']))
-            ->validate([]);
-
-        $this->assertInstanceOf(VerdictList::class, $verdicts);
-        $this->assertTrue($verdicts->fail());
-    }
-
-    /**
-     * @param Validator $validator
-     * @param Field $field
-     *
-     * @return Rule
-     */
-    private function getFailingRule(Validator $validator, Field $field): Rule
-    {
-        return new class($validator, $field) extends Rule {
-            protected $message = 'foobartest';
+        $rule = new class($validator, $this->createMock(Field::class)) extends Rule {
+            public $verdict = false;
 
             public function verdict($value): VerdictInterface
             {
-                return new Verdict(false, $this, $this->getField());
+                $this->verdict = true;
+                return new class implements VerdictInterface {
+                    public function getField(): Field
+                    {
+                    }
+
+                    public function passes(): bool
+                    {
+                    }
+                };
             }
         };
+
+        $verdicts = $validator
+            ->addField('field')
+            ->addRule($rule)
+            ->validate([]);
+
+        // Assert that verdict method was called on rules.
+        $this->assertTrue($rule->verdict);
+        $this->assertInstanceOf(VerdictList::class, $verdicts);
     }
 }
