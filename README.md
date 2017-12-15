@@ -42,7 +42,7 @@ $verdicts = Validator::build()
         ->addRule(Rule\SameAs::class, ['field' => 'password']
     ->validate($data);
 
-if ($verdicts->fail()) {
+if ($verdicts->fails()) {
     // Validation failed
 }
 
@@ -50,9 +50,9 @@ if ($verdicts->fail()) {
 
 # Other methods
 
-$verdicts->pass(); // Is valid?
+$verdicts->passes(); // Is valid?
 $verdicts->forField('username'); // Get all verdicts for specified field.
-$verdicts->forField('username')->pass(); // Is specified field valid?
+$verdicts->forField('username')->passes(); // Is specified field valid?
 $verdicts->toArray(); // Get all verdicts as an array.
 ```
 

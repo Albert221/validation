@@ -11,31 +11,31 @@ class VerdictListTest extends TestCase
     public function testPasses()
     {
         $list = new VerdictList([$this->getPassingVerdict()]);
-        $this->assertTrue($list->pass());
+        $this->assertTrue($list->passes());
 
         $list = new VerdictList([$this->getFailingVerdict()]);
-        $this->assertFalse($list->pass());
+        $this->assertFalse($list->passes());
 
         $list = new VerdictList([
             $this->getPassingVerdict(),
             $this->getFailingVerdict()
         ]);
-        $this->assertFalse($list->pass());
+        $this->assertFalse($list->passes());
     }
 
     public function testFails()
     {
         $list = new VerdictList([$this->getPassingVerdict()]);
-        $this->assertFalse($list->fail());
+        $this->assertFalse($list->fails());
 
         $list = new VerdictList([$this->getFailingVerdict()]);
-        $this->assertTrue($list->fail());
+        $this->assertTrue($list->fails());
 
         $list = new VerdictList([
             $this->getPassingVerdict(),
             $this->getFailingVerdict()
         ]);
-        $this->assertTrue($list->fail());
+        $this->assertTrue($list->fails());
     }
 
     /**

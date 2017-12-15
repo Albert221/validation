@@ -71,7 +71,7 @@ class EverythingTest extends TestCase
                 ->addRule(Rule\Required::class)
 //                ->addRule(Rule\SameAs::class, ['field' => 'password'])
             ->validate($data)
-            ->pass();
+            ->passes();
 
         $this->assertEquals($shouldBeValid, $valid);
     }
