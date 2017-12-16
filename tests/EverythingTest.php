@@ -46,7 +46,7 @@ class EverythingTest extends TestCase
      */
     public function testEverything(bool $shouldBeValid, array $data)
     {
-        $valid = Validator::build()
+        $verdicts = Validator::build()
             ->addField('username')
                 ->addRule(Rule\Required::class)
 //                ->addRule(Rule\Length::class, ['min' => 4])
@@ -70,10 +70,9 @@ class EverythingTest extends TestCase
             ->addField('confirm_password')
                 ->addRule(Rule\Required::class)
 //                ->addRule(Rule\SameAs::class, ['field' => 'password'])
-            ->validate($data)
-            ->passes();
+            ->validate($data);
 
-        $this->assertEquals($shouldBeValid, $valid);
+        $this->assertEquals($shouldBeValid, $verdicts->passes());
     }
 
     /**

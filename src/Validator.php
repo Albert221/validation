@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Albert221\Validation;
 
 use InvalidArgumentException;
+use RuntimeException;
+use Symfony\Component\PropertyAccess\Exception\AccessException;
+use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class Validator
 {
@@ -77,9 +81,18 @@ class Validator
      */
     public function validate($data): VerdictList
     {
+        $propertyAccessor = PropertyAccess::createPropertyAccessor();
+
         $verdicts = [];
         foreach ($this->fields as $field) {
-            $value = $data[$field->getName()] ?? null;
+            try {
+                $value = $propertyAccessor->getValue(
+                    $data,
+                    is_array($data) ? "[" . $field->getName() . "]" : $field->getName()
+                );
+            } catch (RuntimeException $e) {
+                $value = null;
+            }
 
             foreach ($field->getRules() as $rule) {
                 $verdicts[] = $rule->verdict($value);
