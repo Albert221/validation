@@ -8,6 +8,8 @@ use Albert221\Validation\Field;
 use Albert221\Validation\ValidationState;
 use Albert221\Validation\Validator;
 use Albert221\Validation\Verdict;
+use Albert221\Validation\VerdictInterface;
+use Albert221\Validation\VerdictList;
 
 abstract class Rule
 {
@@ -38,7 +40,7 @@ abstract class Rule
      * @param Field $field
      * @param array $options
      */
-    public function __construct(Validator $validator, Field $field, array $options)
+    public function __construct(Validator $validator, Field $field, array $options = [])
     {
         $this->field = $field;
         $this->options = $options;
@@ -102,9 +104,9 @@ abstract class Rule
     /**
      * @param $value
      *
-     * @return Verdict
+     * @return VerdictInterface
      */
-    abstract public function verdict($value): Verdict;
+    abstract public function verdict($value): VerdictInterface;
 
     //
     // Methods taken from Field and ValidatorBuilder for easy methods chaining.
@@ -134,9 +136,9 @@ abstract class Rule
     /**
      * @param $data
      *
-     * @return ValidationState
+     * @return VerdictList
      */
-    public function validate($data): ValidationState
+    public function validate($data): VerdictList
     {
         return $this->validator->validate($data);
     }

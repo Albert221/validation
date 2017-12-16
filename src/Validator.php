@@ -73,9 +73,9 @@ class Validator
     /**
      * @param $data
      *
-     * @return ValidationState
+     * @return VerdictList
      */
-    public function validate($data): ValidationState
+    public function validate($data): VerdictList
     {
         $verdicts = [];
         foreach ($this->fields as $field) {
@@ -86,6 +86,6 @@ class Validator
             }
         }
 
-        return new ValidationState($verdicts);
+        return new VerdictList($verdicts);
     }
 }

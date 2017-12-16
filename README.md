@@ -23,7 +23,7 @@ use Albert221\Validation\Rule;
 
 // $data = [...];
 
-$validState = Validator::build()
+$verdicts = Validator::build()
     ->addField('username')
         ->addRule(Rule\Required::class)
         ->addRule(Rule\Length::class, ['min' => 4])
@@ -42,24 +42,18 @@ $validState = Validator::build()
         ->addRule(Rule\SameAs::class, ['field' => 'password']
     ->validate($data);
 
-if (!$validState->isValid()) {
+if ($verdicts->fails()) {
     // Validation failed
 }
 
 // Validation passed
 
-// ValidationState methods:
+# Other methods
 
-$validState->isValid(); // Is valid?
-$validState->isFieldValid('username'); // Is specified field valid?
-$validState->all(); // Get all verdicts as a flat array.
-$validState->all(ValidationState::GROUPED); // Get all verdicts grouped by field.
-$validState->field('username'); // Get all verdicts for specified field.
-
-// You can also use $validState as an array:
-
-$validState['username'][0]; // For first error of username field.
-$validState[0] // For first error overall.
+$verdicts->passes(); // Is valid?
+$verdicts->forField('username'); // Get all verdicts for specified field.
+$verdicts->forField('username')->passes(); // Is specified field valid?
+$verdicts->toArray(); // Get all verdicts as an array.
 ```
 
 
