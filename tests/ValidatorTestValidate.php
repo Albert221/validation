@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Albert221\Validation;
 
 use Albert221\Validation\Rule\Rule;
+use Albert221\Validation\Rule\RuleValidator;
 use PHPUnit\Framework\TestCase;
 
 class ValidatorTest extends TestCase
@@ -72,20 +73,9 @@ class ValidatorTest extends TestCase
         $validator = new Validator();
 
         $rule = new class($validator, $this->createMock(Field::class)) extends Rule {
-            public $verdict = false;
-
-            public function verdict($value): VerdictInterface
+            public function validatedBy(): string
             {
-                $this->verdict = true;
-                return new class implements VerdictInterface {
-                    public function getField(): Field
-                    {
-                    }
-
-                    public function passes(): bool
-                    {
-                    }
-                };
+                return TestValidateRuleValidator::class;
             }
         };
 
@@ -95,7 +85,7 @@ class ValidatorTest extends TestCase
             ->validate([]);
 
         // Assert that verdict method was called on rules.
-        $this->assertTrue($rule->verdict);
+        $this->assertTrue(TestValidateRuleValidator::$called);
         $this->assertInstanceOf(VerdictList::class, $verdicts);
     }
 }

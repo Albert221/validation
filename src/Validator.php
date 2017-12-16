@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Albert221\Validation;
 
+use Albert221\Validation\Rule\Validator\RuleValidator;
 use InvalidArgumentException;
 use RuntimeException;
-use Symfony\Component\PropertyAccess\Exception\AccessException;
-use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class Validator
 {
+    /**
+     * @var RuleValidatorFactory
+     */
+    private $ruleValidatorFactory;
+
     /**
      * @var Field[]
      */
@@ -23,6 +27,14 @@ class Validator
     public static function build()
     {
         return new self();
+    }
+
+    /**
+     * Validator constructor.
+     */
+    public function __construct()
+    {
+        $this->ruleValidatorFactory = new RuleValidatorFactory();
     }
 
     /**
@@ -95,7 +107,9 @@ class Validator
             }
 
             foreach ($field->getRules() as $rule) {
-                $verdicts[] = $rule->verdict($value);
+                $ruleValidator = $this->ruleValidatorFactory->getInstance($rule);
+
+                $verdicts[] = $ruleValidator->verdict($value, $rule);
             }
         }
 
