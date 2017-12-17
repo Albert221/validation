@@ -26,7 +26,7 @@ abstract class Rule
     /**
      * @var array
      */
-    private $options;
+    protected $options;
 
     /**
      * @var string
@@ -47,17 +47,12 @@ abstract class Rule
         $this->validator = $validator;
     }
 
+    /**
+     * @return Field
+     */
     public function getField(): Field
     {
         return $this->field;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFieldName(): string
-    {
-        return $this->field->getName();
     }
 
     /**
@@ -102,11 +97,12 @@ abstract class Rule
     }
 
     /**
-     * @param $value
-     *
-     * @return VerdictInterface
+     * @return string
      */
-    abstract public function verdict($value): VerdictInterface;
+    public function validatedBy(): string
+    {
+        return get_class($this) . 'Validator';
+    }
 
     //
     // Methods taken from Field and ValidatorBuilder for easy methods chaining.
