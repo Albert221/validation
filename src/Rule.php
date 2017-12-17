@@ -6,15 +6,7 @@ namespace Albert221\Validation;
 
 abstract class Rule
 {
-    /**
-     * @var Validator
-     */
-    private $validator;
-
-    /**
-     * @var Field
-     */
-    private $field;
+    use RuleChainTrait;
 
     /**
      * @var array
@@ -34,30 +26,6 @@ abstract class Rule
     public function __construct(array $options = [])
     {
         $this->options = $options;
-    }
-
-    /**
-     * @param Validator $validator
-     * @param Field $field
-     *
-     * @return Rule
-     *
-     * @internal
-     */
-    public function setValidatorAndField(Validator $validator, Field $field): Rule
-    {
-        $this->validator = $validator;
-        $this->field = $field;
-
-        return $this;
-    }
-
-    /**
-     * @return Field
-     */
-    public function getField(): Field
-    {
-        return $this->field;
     }
 
     /**
@@ -107,40 +75,5 @@ abstract class Rule
     public function validatedBy(): string
     {
         return get_class($this) . 'Validator';
-    }
-
-    //
-    // Methods taken from Field and ValidatorBuilder for easy methods chaining.
-    //
-
-    /**
-     * @param string $name
-     *
-     * @return Field
-     */
-    public function addField(string $name): Field
-    {
-        return $this->validator->addField($name);
-    }
-
-    /**
-     * @param $rule
-     * @param array $options
-     *
-     * @return Rule
-     */
-    public function addRule($rule, array $options = []): Rule
-    {
-        return $this->field->addRule($rule, $options);
-    }
-
-    /**
-     * @param $data
-     *
-     * @return VerdictList
-     */
-    public function validate($data): VerdictList
-    {
-        return $this->validator->validate($data);
     }
 }
