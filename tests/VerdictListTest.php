@@ -38,6 +38,38 @@ class VerdictListTest extends TestCase
         $this->assertTrue($list->fails());
     }
 
+    public function testToArray()
+    {
+        $verdictList = new VerdictList([
+            $this->getPassingVerdict()
+        ]);
+
+        $this->assertInternalType('array', $verdictList->toArray());
+    }
+
+    public function testCount()
+    {
+        $verdictList = new VerdictList([
+            $this->getPassingVerdict(),
+            $this->getPassingVerdict(),
+            $this->getFailingVerdict()
+        ]);
+
+        $this->assertEquals(3, $verdictList->count());
+    }
+
+    public function testGetIterator()
+    {
+        $firstVerdict = $this->getPassingVerdict();
+
+        $verdictList = new VerdictList([
+            $firstVerdict,
+            $this->getPassingVerdict()
+        ]);
+
+        $this->assertEquals($firstVerdict, $verdictList->getIterator()->getArrayCopy()[0]);
+    }
+
     /**
      * @return VerdictInterface
      */
