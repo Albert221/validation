@@ -36,15 +36,27 @@ abstract class Rule
     /**
      * Rule constructor.
      *
-     * @param Validator $validator
-     * @param Field $field
      * @param array $options
      */
-    public function __construct(Validator $validator, Field $field, array $options = [])
+    public function __construct(array $options = [])
     {
-        $this->field = $field;
         $this->options = $options;
+    }
+
+    /**
+     * @param Validator $validator
+     * @param Field $field
+     *
+     * @return Rule
+     *
+     * @internal
+     */
+    public function setValidatorAndField(Validator $validator, Field $field): Rule
+    {
         $this->validator = $validator;
+        $this->field = $field;
+
+        return $this;
     }
 
     /**

@@ -53,6 +53,7 @@ class Field
     public function addRule($rule, array $options = []): Rule
     {
         if ($rule instanceof Rule) {
+            $rule->setValidatorAndField($this->validator, $this);
             return $this->rules[] = $rule;
         }
 
@@ -64,7 +65,11 @@ class Field
             ));
         }
 
-        return $this->rules[] = new $rule($this->validator, $this, $options);
+        /** @var Rule $rule */
+        $rule = new $rule($options);
+        $rule->setValidatorAndField($this->validator, $this);
+
+        return $this->rules[] = $rule;
     }
 
     /**

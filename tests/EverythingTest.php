@@ -49,13 +49,6 @@ class EverythingTest extends TestCase
         $verdicts = Validator::build()
             ->addField('username')
                 ->addRule(Rule\Required::class)
-//                ->addRule(Rule\Length::class, ['min' => 4])
-//                ->addRule(Rule\DbUnique::class, [
-//                    'pdo' => $this->pdo,
-//                    'table' => 'users',
-//                    'field' => 'username'
-//                ])
-//                ->addRule(Rule\NotIn::class, ['collection' => $this->insults])
             ->addField('email')
                 ->addRule(Rule\Required::class)
 //                ->addRule(Rule\Email::class)
