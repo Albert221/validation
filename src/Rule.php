@@ -2,14 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Albert221\Validation\Rule;
-
-use Albert221\Validation\Field;
-use Albert221\Validation\ValidationState;
-use Albert221\Validation\Validator;
-use Albert221\Validation\Verdict;
-use Albert221\Validation\VerdictInterface;
-use Albert221\Validation\VerdictList;
+namespace Albert221\Validation;
 
 abstract class Rule
 {

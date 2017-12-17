@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Albert221\Validation\Rule;
 
-use Albert221\Validation\Verdict;
-use Albert221\Validation\VerdictInterface;
+use Albert221\Validation\Rule;
 
 /**
  * Required validates whether given value is considered as existing or not.

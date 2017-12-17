@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Albert221\Validation;
 
-use Albert221\Validation\Rule\Rule;
-
 class Verdict implements VerdictInterface
 {
     /**

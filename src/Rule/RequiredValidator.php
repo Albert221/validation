@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Albert221\Validation\Rule;
 
+use Albert221\Validation\Rule;
+use Albert221\Validation\RuleValidator;
 use Albert221\Validation\Verdict;
 use Albert221\Validation\VerdictInterface;
 
