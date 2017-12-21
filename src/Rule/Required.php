@@ -7,7 +7,7 @@ namespace Albert221\Validation\Rule;
 use Albert221\Validation\Rule;
 
 /**
- * Required validates whether given value is considered as existing or not.
+ * Validates whether given value actually exists or not.
  */
 class Required extends Rule
 {
