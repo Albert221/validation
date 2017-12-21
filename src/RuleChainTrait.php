@@ -12,14 +12,14 @@ trait RuleChainTrait
     private $validator;
 
     /**
-     * @var Field
+     * @var Field|null
      */
     private $field;
 
     /**
      * @return Field
      */
-    public function getField(): Field
+    public function getField(): ?Field
     {
         return $this->field;
     }

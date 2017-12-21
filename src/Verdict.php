@@ -17,7 +17,7 @@ class Verdict implements VerdictInterface
     private $rule;
 
     /**
-     * @var Field
+     * @var Field|null
      */
     private $field;
 
@@ -37,9 +37,9 @@ class Verdict implements VerdictInterface
      *
      * @param bool $passes
      * @param Rule $rule
-     * @param Field $field
+     * @param Field|null $field
      */
-    public function __construct(bool $passes, Rule $rule, Field $field)
+    public function __construct(bool $passes, Rule $rule, ?Field $field)
     {
         $this->passes = $passes;
         $this->rule = $rule;
@@ -55,9 +55,9 @@ class Verdict implements VerdictInterface
     }
 
     /**
-     * @return Field
+     * @return Field|null
      */
-    public function getField(): Field
+    public function getField(): ?Field
     {
         return $this->field;
     }

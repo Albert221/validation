@@ -12,7 +12,7 @@ interface VerdictInterface
     public function passes(): bool;
 
     /**
-     * @return Field
+     * @return Field|null
      */
-    public function getField(): Field;
+    public function getField(): ?Field;
 }
