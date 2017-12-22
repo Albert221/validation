@@ -51,7 +51,7 @@ class EverythingTest extends TestCase
                 ->addRule(Rule\Required::class)
             ->addField('email')
                 ->addRule(Rule\Required::class)
-//                ->addRule(Rule\Email::class)
+                ->addRule(Rule\Email::class)
             ->addField('favorite_sentence')
 //                ->addRule(new Rule\Length(['min' => 10]))
             ->addField('password')
