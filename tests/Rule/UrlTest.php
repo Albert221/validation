@@ -13,6 +13,7 @@ class UrlTest extends TestCase
         $urlValidator = new UrlValidator();
 
         // Passes
+        $this->assertTrue($urlValidator->verdict(null, new Url())->passes());
         $this->assertTrue($urlValidator->verdict('http://google.com', new Url())->passes());
         $this->assertTrue($urlValidator->verdict('http://github.com/Albert221/validation', new Url())->passes());
         $this->assertTrue($urlValidator->verdict('http://google.com:1212?foo=bar', new Url())->passes());

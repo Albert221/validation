@@ -16,6 +16,7 @@ class EmailTest extends TestCase
         $emailValidator = new EmailValidator();
 
         // Passes
+        $this->assertTrue($emailValidator->verdict(null, new Email())->passes());
         $this->assertTrue($emailValidator->verdict('prettyandsimple@example.com', new Email())->passes());
         $this->assertTrue($emailValidator->verdict('very.common@example.com', new Email())->passes());
         $this->assertTrue($emailValidator->verdict('disposable.email.with+symbol@example.com', new Email())->passes());
