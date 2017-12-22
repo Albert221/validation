@@ -8,6 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class EmailTest extends TestCase
 {
+    /**
+     * Thanks to https://en.wikipedia.org/wiki/Email_address#Examples
+     */
     public function testVerdict()
     {
         $emailValidator = new EmailValidator();
