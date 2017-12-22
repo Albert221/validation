@@ -12,9 +12,10 @@ use Albert221\Validation\VerdictInterface;
 class UrlValidator extends RuleValidator
 {
     /**
-     * @see https://github.com/symfony/validator/blob/master/Constraints/UrlValidator.php#L24
      * Regex borrowed from Symfony Validator under MIT license:
      * https://github.com/symfony/validator/blob/master/LICENSE
+     *
+     * @see https://github.com/symfony/validator/blob/master/Constraints/UrlValidator.php#L24
      */
     private const PATTERN = '~^
             (http|https)://                                                 # protocol
