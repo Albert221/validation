@@ -21,14 +21,45 @@ class LengthValidator extends RuleValidator
         }
 
         return Verdict::create(
-            mb_strlen($value) >= $rule->getOption('min', 0)
-            && mb_strlen($value) <= $rule->getOption('max', PHP_INT_MAX)
-            && (
-                is_null($rule->getOption('exact'))
-                || mb_strlen($value) === $rule->getOption('exact')
-            ),
+            $this->isNotSmallerThanItShould($value, $rule)
+                && $this->isNotBiggerThanItShould($value, $rule)
+                && $this->isExactlyHowItShould($value, $rule),
             $rule
         );
+    }
+
+    /**
+     * @param $value
+     * @param Rule $rule
+     *
+     * @return bool
+     */
+    private function isNotSmallerThanItShould($value, Rule $rule): bool
+    {
+        return mb_strlen($value) >= $rule->getOption('min', 0);
+    }
+
+    /**
+     * @param $value
+     * @param Rule $rule
+     *
+     * @return bool
+     */
+    private function isNotBiggerThanItShould($value, Rule $rule): bool
+    {
+        return mb_strlen($value) <= $rule->getOption('max', PHP_INT_MAX);
+    }
+
+    /**
+     * @param $value
+     * @param Rule $rule
+     *
+     * @return bool
+     */
+    private function isExactlyHowItShould($value, Rule $rule): bool
+    {
+        return is_null($rule->getOption('exact'))
+            || mb_strlen($value) === $rule->getOption('exact');
     }
 
     /**
