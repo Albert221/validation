@@ -56,7 +56,7 @@ class Field
             return $this->rules[] = $rule;
         }
 
-        if (!is_string($rule) || !class_exists($rule) || !is_subclass_of($rule, Rule::class)) {
+        if (!is_subclass_of($rule, Rule::class)) {
             throw new InvalidArgumentException(sprintf(
                 'First argument must be an instance of %s or fully qualified name of this class, %s given.',
                 Rule::class,
