@@ -31,9 +31,20 @@ abstract class Rule
     /**
      * @return array
      */
-    protected function getOptions(): array
+    public function getOptions(): array
     {
         return $this->options;
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $default
+     *
+     * @return mixed
+     */
+    public function getOption(string $name, $default = null)
+    {
+        return $this->options[$name] ?? $default;
     }
 
     /**
@@ -42,7 +53,7 @@ abstract class Rule
      *
      * @return Rule
      */
-    public function setOption(string $name, $value)
+    public function setOption(string $name, $value): self
     {
         $this->options[$name] = $value;
 
@@ -62,7 +73,7 @@ abstract class Rule
      *
      * @return Rule
      */
-    public function setMessage(string $message)
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 
