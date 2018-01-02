@@ -8,6 +8,29 @@ use PHPUnit\Framework\TestCase;
 
 class VerdictTest extends TestCase
 {
+    public function testPassing()
+    {
+        $ruleMock = $this->getRuleMock();
+
+        $verdict = Verdict::passing($ruleMock);
+
+        $this->assertEquals(
+            new Verdict(true, $ruleMock, $ruleMock->getField()),
+            $verdict
+        );
+    }
+    public function testFailing()
+    {
+        $ruleMock = $this->getRuleMock();
+
+        $verdict = Verdict::failing($ruleMock);
+
+        $this->assertEquals(
+            new Verdict(false, $ruleMock, $ruleMock->getField()),
+            $verdict
+        );
+    }
+
     public function testCreate()
     {
         $ruleMock = $this->getRuleMock();
