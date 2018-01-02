@@ -17,9 +17,9 @@ class RequiredValidator extends RuleValidator
     public function verdict($value, Rule $rule): VerdictInterface
     {
         if (null !== $value) {
-            return Verdict::create(true, $rule);
+            return Verdict::passing($rule);
         }
 
-        return Verdict::create(false, $rule);
+        return Verdict::failing($rule);
     }
 }

@@ -22,6 +22,26 @@ class Verdict implements VerdictInterface
     private $field;
 
     /**
+     * @param Rule $rule
+     *
+     * @return Verdict
+     */
+    public static function passing(Rule $rule)
+    {
+        return self::create(true, $rule);
+    }
+
+    /**
+     * @param Rule $rule
+     *
+     * @return Verdict
+     */
+    public static function failing(Rule $rule)
+    {
+        return self::create(false, $rule);
+    }
+
+    /**
      * @param bool $passes
      * @param Rule $rule
      *

@@ -17,7 +17,7 @@ class RegexValidator extends RuleValidator
         $this->validateOptions($rule->getOptions());
 
         if (is_null($value)) {
-            return Verdict::create(true, $rule);
+            return Verdict::passing($rule);
         }
 
         return Verdict::create(
