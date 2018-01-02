@@ -45,6 +45,9 @@ class Validator
     }
 
     /**
+     * Merges given Validator fields with already existing ones.
+     * NOTE: It does not merge single rules in fields but the fields as whole.
+     *
      * @param Validator $validatorBuilder
      *
      * @return Validator
